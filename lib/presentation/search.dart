@@ -5,7 +5,7 @@ class SearchBar extends StatefulWidget {
 
   SearchBar({
     @required this.onSearch,
-  }):super(key: Key("search"));
+  }):super(key: Key("search_currency"));
 
   @override
   State<StatefulWidget> createState() => _SearchBarState(onSearch: onSearch);

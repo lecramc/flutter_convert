@@ -1,4 +1,3 @@
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_convert/config/currency_api.dart';
 import 'package:flutter_convert/domain/currency.dart';
@@ -37,15 +36,16 @@ class _MyHomePageState extends State<MyHomePage> {
   String searchInput = "";
 
   List<Currency> items;
+  List<Currency> filtered;
   var cur = new CurrencyAPI();
 
   @override
   void initState() {
     super.initState();
-    items = List<Currency>();
+    items = filtered = List<Currency>();
     cur.getListCur().then((result){
       setState(() {
-        items = result;
+        items = filtered = result;
       });
     }).catchError((error) => {
       print(error),
@@ -69,16 +69,15 @@ class _MyHomePageState extends State<MyHomePage> {
               setState(() {
                 searchInput = value;
                 if(value != ""){
-                items = items.where((element) => element.alias.contains(value) || element.label.contains(value)).toList();
-                  print(items.where((element) => element.alias.contains(value) || element.label.contains(value)).length);
-                  print(items);
+                  filtered = items.where((element) => element.alias.contains(value) || element.label.contains(value)).toList();
+                } else {
+                  filtered = items.toList();
                 }
-
               });
             }
           ),
           Text(searchInput),
-          Expanded(child: ListCurrency(currencyList: items)),
+          Expanded(child: ListCurrency(currencyList: filtered)),
         ],
 
       ),

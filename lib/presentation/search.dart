@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 class SearchBar extends StatefulWidget {
   final Function(String) onSearch;
 
-  SearchBar({
-    @required this.onSearch,
-  }):super(key: Key("search_currency"));
+  SearchBar({@required this.onSearch}):super(key: Key("search_currency"));
 
   @override
   State<StatefulWidget> createState() => _SearchBarState(onSearch: onSearch);
@@ -32,7 +30,11 @@ class _SearchBarState extends State<SearchBar> {
           decoration: InputDecoration(
               border: OutlineInputBorder(), labelText: "Search"),
           onSubmitted: (String value) {
+            if(value == ""){
+              print("RIEN");
+            }
             onSearch(value);
+            print("Valeur");
           },
         ));
   }
